@@ -1,37 +1,58 @@
 extends CharacterBody2D
 
-const speed: float = 15.0
-const acceleration: float = 50.0
-const friction: float = acceleration / speed
-const max_speed: float = 10
+const acceleration: float = 1.0
+
+var speed: float = 10.0
+var rotation_speed: float = 2.5
+var friction: float = acceleration / speed * 4.0
+var move_input: float
+var rotation_direction: float
+var max_speed: float = 750.0
 
 func _process(delta: float) -> void:
-	apply_traction(delta) # only activates if button is pressed
-	apply_friction(delta) # applied after traction
+	# seperate from physics process
+	apply_traction(delta)
+	apply_friction(delta)
 
-	
 func _physics_process(delta: float) -> void:
-	move_and_collide(velocity) # collides with objects
+	move_input = Input.get_axis("ui_up", "ui_down")
+	rotation_direction = Input.get_axis("ui_left", "ui_right")
 
+	# sets max speed that car can go
+	if velocity.y > max_speed:
+		velocity.y = max_speed
+	if velocity.y < -(max_speed):
+		velocity.y = -(max_speed)
+	if velocity.x > max_speed:
+		velocity.x = max_speed
+	if velocity.x < -(max_speed):
+		velocity.x = -(max_speed)
+
+	move_and_slide() # necessary to move the car
 
 func apply_traction(delta: float) -> void:
-	var traction: Vector2 = Vector2.ZERO # direction of input
-	
+	var traction: Vector2 = Vector2.ZERO # can tell which direction going
 	if Input.is_action_pressed("ui_up"):
 		traction.y -= 1
 	if Input.is_action_pressed("ui_down"):
 		traction.y += 1
 	if Input.is_action_pressed("ui_left"):
-		traction.x -= 1
+		traction.x -= 1.0
+		apply_turn_friction(delta)
 	if Input.is_action_pressed("ui_right"):
-		traction.x += 1
-		
-	traction = traction.normalized() # not sure why normalized
-	velocity += traction * acceleration * delta # add velocity every tick
-	# clamps max veloctiy to max_speed so it doesn't infinitely accelerate
-	velocity.y =min(max_speed, velocity.y)
-	velocity.x = min(max_speed, velocity.x)
+		apply_turn_friction(delta)
+		traction.x += 1.0
 	
-func apply_friction(delta: float) -> void:
-	velocity -= velocity * friction * delta # take away velocity every tick
+	traction = traction.normalized() # have to normalize or always moving
 
+	velocity += transform.x * move_input * speed * acceleration # includes direction and move input and acceleration
+	if velocity != Vector2.ZERO: # stops the car from rotating if not moving
+		rotation += rotation_direction * rotation_speed * delta
+
+# called every tick to slow the car down if not moving	
+func apply_friction(delta: float) -> void:
+	velocity -= velocity * friction * delta 
+
+# called when right or left are held down, reduces speed for more realistic driving	
+func apply_turn_friction(delta: float) -> void:
+	velocity -= velocity/2 * friction * delta
