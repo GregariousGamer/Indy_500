@@ -8,6 +8,7 @@ size = Vector2(66, 69)
 
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(629, 432)
+rotation = -3.14159
 script = ExtResource("1_r7fhn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
