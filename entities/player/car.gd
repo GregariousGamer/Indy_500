@@ -2,13 +2,17 @@ extends CharacterBody2D
 
 const acceleration: float = 1.0
 
-@export var speed: float = 10.0
-@export var rotation_speed: float = 2.0
-@export var friction: float = acceleration / speed * 10.0
+@export var speed: float = 7.5
+@export var rotation_speed: float = 2.25
+@export var friction: float = acceleration / speed * 5.0
 @export var move_input: float
 @export var rotation_direction: float
-@export var max_speed: float = 1000.0
-@export var turn_speed_minimum: float = 150.0
+@export var max_speed: float = 500.0
+@export var turn_speed_minimum: float = 200.0
+
+func _ready() -> void:
+	self.scale *= 0.5
+	pass
 
 func _process(delta: float) -> void:
 	# seperate from physics process
@@ -28,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = max_speed
 	if velocity.x < -(max_speed):
 		velocity.x = -(max_speed)
+		
 
 	move_and_slide() # necessary to move the car
 
@@ -41,8 +46,8 @@ func apply_traction(delta: float) -> void:
 		traction.x -= 1.0
 		apply_turn_friction(delta)
 	if Input.is_action_pressed("ui_right"):
-		apply_turn_friction(delta)
 		traction.x += 1.0
+		apply_turn_friction(delta)
 	
 	traction = traction.normalized() # have to normalize or always moving
 
@@ -57,4 +62,4 @@ func apply_friction(delta: float) -> void:
 
 # called when right or left are held down, reduces speed for more realistic driving	
 func apply_turn_friction(delta: float) -> void:
-	velocity -= (velocity * friction * delta) / 250
+	velocity -= (velocity * friction * delta)

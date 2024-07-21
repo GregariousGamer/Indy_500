@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7dvuxn0owr63"
-path="res://.godot/imported/race_car.png-e324f68c68326527539befb1fc5d6f08.ctex"
+uid="uid://c2x6wrq4330pn"
+path="res://.godot/imported/dirt_pad.png-c43ccdf695c8f30a29d75955d74ccaad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/race_car.png"
-dest_files=["res://.godot/imported/race_car.png-e324f68c68326527539befb1fc5d6f08.ctex"]
+source_file="res://entities/environment/test_level/dirt_pad.png"
+dest_files=["res://.godot/imported/dirt_pad.png-c43ccdf695c8f30a29d75955d74ccaad.ctex"]
 
 [params]
 

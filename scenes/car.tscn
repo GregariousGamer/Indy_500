@@ -1,21 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://qagomij3ohoo"]
 
 [ext_resource type="Script" path="res://entities/player/car.gd" id="1_r7fhn"]
-[ext_resource type="Texture2D" uid="uid://d0r6f22igi6t1" path="res://entities/player/race_car.png" id="2_r1g1e"]
+[ext_resource type="Texture2D" uid="uid://b7dvuxn0owr63" path="res://entities/player/race_car.png" id="2_r1g1e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp86"]
-size = Vector2(66, 69)
+size = Vector2(18, 19)
 
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(629, 432)
-rotation = -3.14159
+rotation = -4.71238
 script = ExtResource("1_r7fhn")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 4.71238
 texture = ExtResource("2_r1g1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-rotation = 4.71238
+position = Vector2(0.5, 0)
+rotation = -1.57081
 shape = SubResource("RectangleShape2D_3qp86")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
