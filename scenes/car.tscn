@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp86"]
 size = Vector2(18, 19)
 
-[node name="Car" type="CharacterBody2D"]
+[node name="Car" type="CharacterBody2D" groups=["car"]]
+z_index = -1
 position = Vector2(629, 432)
 rotation = -4.71238
 script = ExtResource("1_r7fhn")
