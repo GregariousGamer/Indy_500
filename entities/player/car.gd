@@ -2,19 +2,31 @@ extends CharacterBody2D
 
 const acceleration: float = 1.0
 
-@export var speed: float = 7.5
+@export var speed: float = 5.0
 @export var rotation_speed: float = 2.25
 @export var friction: float = acceleration / speed * 5.0
 @export var move_input: float
 @export var rotation_direction: float
-@export var max_speed: float = 500.0
+@export var max_speed: float = 750.0
 @export var turn_speed_minimum: float = 200.0
+
+@onready var car_trails: GPUParticles2D = $LeftParticles/CarTrails
 
 func _ready() -> void:
 	self.scale *= 0.5
-	pass
 
 func _process(delta: float) -> void:
+	# car particles !!NEEDS WORK
+	if self.velocity.y < 0:
+		car_trails.position = self.position + Vector2(0, 5)
+	if self.velocity.y > 0:
+		car_trails.position = self.position - Vector2(0, 5)
+	if (self.velocity.y == 0
+	&& self.velocity.x > 0):
+		car_trails.position = self.position - Vector2(3, 8)
+	if (self.velocity.y == 0
+	&& self.velocity.x > 0):
+		car_trails.position = self.position + Vector2(3, 8)
 	# seperate from physics process
 	apply_traction(delta)
 	apply_friction(delta)
@@ -33,7 +45,6 @@ func _physics_process(delta: float) -> void:
 	if velocity.x < -(max_speed):
 		velocity.x = -(max_speed)
 		
-
 	move_and_slide() # necessary to move the car
 
 func apply_traction(delta: float) -> void:
