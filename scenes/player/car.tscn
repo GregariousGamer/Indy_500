@@ -26,7 +26,8 @@ shape = SubResource("RectangleShape2D_3qp86")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 
-[node name="LeftParticles" type="Node" parent="."]
-
-[node name="CarTrails" parent="LeftParticles" instance=ExtResource("3_nuoqj")]
+[node name="CarTrails" parent="." instance=ExtResource("3_nuoqj")]
+position = Vector2(9, -6.10352e-05)
+rotation = -1.57081
+emitting = false
 amount = 15

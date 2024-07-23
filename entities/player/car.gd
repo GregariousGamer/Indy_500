@@ -8,28 +8,21 @@ const acceleration: float = 1.0
 @export var move_input: float
 @export var rotation_direction: float
 @export var max_speed: float = 750.0
-@export var turn_speed_minimum: float = 200.0
+@export var turn_speed_minimum: float = 30.0
 
-@onready var car_trails: GPUParticles2D = $LeftParticles/CarTrails
+@onready var car_trails: GPUParticles2D = $CarTrails
 
 func _ready() -> void:
 	self.scale *= 0.5
 
 func _process(delta: float) -> void:
-	# car particles, based on direction of car !!NEEDS WORK
-	if self.velocity.y < 0:
-		car_trails.position = self.position + Vector2(0, 5)
-	if self.velocity.y > 0:
-		car_trails.position = self.position - Vector2(0, 5)
-	if (self.velocity.y == 0
-	&& self.velocity.x > 0):
-		car_trails.position = self.position - Vector2(3, 8)
-	if (self.velocity.y == 0
-	&& self.velocity.x > 0):
-		car_trails.position = self.position + Vector2(3, 8)
-	if (self.velocity.y == 0
-	&& self.velocity.x == 0):
-		car_trails.position = self.position + Vector2(3, 5)
+	## car particles, based on direction of car !!NEEDS WORK
+	# engine handles it I was just overthinking it
+	if (abs(velocity.y) >= turn_speed_minimum || abs(velocity.x) >= turn_speed_minimum):
+		car_trails.emitting = true
+	else:
+		car_trails.emitting = false
+	
 	# seperate from physics process
 	apply_traction(delta)
 	apply_friction(delta)
@@ -67,8 +60,8 @@ func apply_traction(delta: float) -> void:
 
 	velocity += transform.x * move_input * speed * acceleration # includes direction and move input and acceleration
 	if velocity != Vector2.ZERO: # stops the car from rotating if not moving
-		#if abs(velocity.y) || abs(velocity.x) >= turn_speed_minimum: # minimum speed required to turn effectively
-		rotation += rotation_direction * rotation_speed * delta
+		if (abs(velocity.y) >= turn_speed_minimum || abs(velocity.x) >= turn_speed_minimum): # minimum speed required to turn effectively
+			rotation += rotation_direction * rotation_speed * delta
 
 # called every tick to slow the car down if not moving	
 func apply_friction(delta: float) -> void:
