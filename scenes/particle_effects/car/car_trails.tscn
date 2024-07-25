@@ -3,14 +3,14 @@
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x77ue"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 4.0
+scale_min = 5.0
+scale_max = 10.0
 hue_variation_min = 1.0
 hue_variation_max = 1.0
 anim_speed_max = 2.0
 
 [node name="CarTrails" type="GPUParticles2D"]
-modulate = Color(1, 0.858824, 0.0235294, 0.352941)
+modulate = Color(1, 0.203922, 0.0235294, 0.352941)
 process_material = SubResource("ParticleProcessMaterial_x77ue")
-lifetime = 2.0
+lifetime = 3.5
 speed_scale = 4.0

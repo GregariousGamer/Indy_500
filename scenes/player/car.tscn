@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://qagomij3ohoo"]
+[gd_scene load_steps=6 format=3 uid="uid://qagomij3ohoo"]
 
 [ext_resource type="Script" path="res://entities/player/car.gd" id="1_r7fhn"]
 [ext_resource type="Texture2D" uid="uid://b7dvuxn0owr63" path="res://entities/player/race_car.png" id="2_r1g1e"]
 [ext_resource type="PackedScene" uid="uid://cnff8whxji775" path="res://scenes/particle_effects/car/car_trails.tscn" id="3_nuoqj"]
+[ext_resource type="AudioStream" uid="uid://c5c70i6rva7p6" path="res://assets/sounds/player/CarEngine_loop.wav" id="4_ugvu0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp86"]
 size = Vector2(18, 19)
@@ -23,11 +24,19 @@ position = Vector2(0.5, 0)
 rotation = -1.57081
 shape = SubResource("RectangleShape2D_3qp86")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
-
 [node name="CarTrails" parent="." instance=ExtResource("3_nuoqj")]
-position = Vector2(9, -6.10352e-05)
+position = Vector2(8.00004, 4.99995)
 rotation = -1.57081
 emitting = false
 amount = 15
+
+[node name="CarTrails2" parent="." instance=ExtResource("3_nuoqj")]
+position = Vector2(7.99995, -4.00006)
+rotation = -1.57081
+emitting = false
+amount = 15
+
+[node name="CarDriving" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ugvu0")
+volume_db = -3.0
+max_distance = 8000.0
