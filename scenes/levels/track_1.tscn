@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://2u2wu1vk8qex"]
+[gd_scene load_steps=10 format=3 uid="uid://2u2wu1vk8qex"]
 
 [ext_resource type="Texture2D" uid="uid://7qf8pcijso58" path="res://entities/environment/test_level/track_palette.png" id="1_j5pv2"]
 [ext_resource type="Script" path="res://entities/environment/track_1/track_1.gd" id="1_qv888"]
 [ext_resource type="PackedScene" uid="uid://qagomij3ohoo" path="res://scenes/player/car.tscn" id="2_b1v0u"]
 [ext_resource type="PackedScene" uid="uid://ct301n8svipfi" path="res://scenes/HUDs/score_hud.tscn" id="3_q8apc"]
+[ext_resource type="PackedScene" uid="uid://bl8q0flmltdxd" path="res://scenes/player/car_2.tscn" id="3_vcg43"]
 [ext_resource type="AudioStream" uid="uid://dd6gc1b8amb67" path="res://assets/sounds/track_sounds/lap_sound.wav" id="4_l11jx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yca8c"]
@@ -34,6 +35,7 @@ size = Vector2(27, 128)
 [node name="Track1" type="Node2D"]
 script = ExtResource("1_qv888")
 player_car = ExtResource("2_b1v0u")
+player2_car = ExtResource("3_vcg43")
 score_hud = ExtResource("3_q8apc")
 
 [node name="Tilemaps" type="Node" parent="."]
@@ -53,6 +55,9 @@ scale = Vector2(5.12259, 6.71481)
 
 [node name="CarStartMarker" type="Marker2D" parent="Player"]
 position = Vector2(438, 176)
+
+[node name="Car2StartMarker" type="Marker2D" parent="Player"]
+position = Vector2(438, 231)
 
 [node name="Checkpoints" type="Node" parent="." groups=["checkpoints"]]
 

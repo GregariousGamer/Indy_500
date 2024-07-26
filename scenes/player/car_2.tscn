@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl8q0flmltdxd"]
+
+[ext_resource type="Script" path="res://entities/player/car_2.gd" id="1_v7sry"]
+[ext_resource type="Texture2D" uid="uid://y3x1njnf4yu7" path="res://entities/player/car2_2.png" id="2_62sc3"]
+[ext_resource type="PackedScene" uid="uid://cnff8whxji775" path="res://scenes/particle_effects/car/car_trails.tscn" id="2_lqdm0"]
+[ext_resource type="AudioStream" uid="uid://c5c70i6rva7p6" path="res://assets/sounds/player/CarEngine_loop.wav" id="3_7b54x"]
+
+[node name="Car2" type="CharacterBody2D" groups=["car"]]
+script = ExtResource("1_v7sry")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 4.71238
+texture = ExtResource("2_62sc3")
+
+[node name="CarTrails" parent="." instance=ExtResource("2_lqdm0")]
+z_index = -1
+position = Vector2(6.48499e-05, 9.99999)
+rotation = -1.57081
+emitting = false
+amount = 15
+
+[node name="CarTrails2" parent="." instance=ExtResource("2_lqdm0")]
+z_index = -1
+position = Vector2(-8.01086e-05, -9.99999)
+rotation = -1.57081
+emitting = false
+amount = 15
+
+[node name="CarDriving" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7b54x")
+volume_db = -7.0
+max_distance = 8000.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-20.0001, -9.99988, -11.0001, -9.99994, -11.0001, -5.99994, -6.00006, -5.99997, -6.00006, -11, 1.99994, -11, 2.00006, 12, -5.99994, 12, -6, 6.00003, -10, 6.00006, -9.99994, 10.0001, -19.9999, 10.0001, -20, 6.00012, -23, 4.00012, -23, -2.99988, -21.0001, -5.99988, -19.0001, -5.99988)

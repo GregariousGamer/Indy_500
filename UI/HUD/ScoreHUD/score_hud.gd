@@ -10,12 +10,18 @@ extends Control
 @onready var player_2: HBoxContainer = $MarginContainer/ScoreBox/Player2
 @onready var player_2_label: Label = $MarginContainer/ScoreBox/Player2/Player2Label
 
-var score: int
+var score_player_1: int
+var score_player_2: int
 
 func _ready() -> void:
-	SignalManager.connect("full_lap_update_score_player_1", update_score_label)
+	SignalManager.connect("full_lap_update_score_player_1", update_score_label_p1)
+	SignalManager.connect("full_lap_update_score_player_2", update_score_label_p2)
 	
-func update_score_label() -> void:
-	score += 1
-	player_1_label.text = "P1 LAPS: " + str(score)
+func update_score_label_p1() -> void:
+	score_player_1 += 1
+	player_1_label.text = "P1 LAPS: " + str(score_player_1)
+
+func update_score_label_p2() -> void:
+	score_player_2 += 1
+	player_2_label.text = "P2 LAPS: " + str(score_player_2)
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://qagomij3ohoo"]
 
 [ext_resource type="Script" path="res://entities/player/car.gd" id="1_r7fhn"]
-[ext_resource type="Texture2D" uid="uid://d1rb4kk3yy0h4" path="res://entities/player/car2.png" id="2_vrnpw"]
+[ext_resource type="Texture2D" uid="uid://d1rtan7wmp75m" path="res://entities/player/car2.png" id="2_vrnpw"]
 [ext_resource type="PackedScene" uid="uid://cnff8whxji775" path="res://scenes/particle_effects/car/car_trails.tscn" id="3_nuoqj"]
 [ext_resource type="AudioStream" uid="uid://c5c70i6rva7p6" path="res://assets/sounds/player/CarEngine_loop.wav" id="4_ugvu0"]
 
