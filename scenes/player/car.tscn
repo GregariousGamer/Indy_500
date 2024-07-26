@@ -1,15 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://qagomij3ohoo"]
+[gd_scene load_steps=5 format=3 uid="uid://qagomij3ohoo"]
 
 [ext_resource type="Script" path="res://entities/player/car.gd" id="1_r7fhn"]
-[ext_resource type="Texture2D" uid="uid://b7dvuxn0owr63" path="res://entities/player/race_car.png" id="2_r1g1e"]
+[ext_resource type="Texture2D" uid="uid://d1rb4kk3yy0h4" path="res://entities/player/car2.png" id="2_vrnpw"]
 [ext_resource type="PackedScene" uid="uid://cnff8whxji775" path="res://scenes/particle_effects/car/car_trails.tscn" id="3_nuoqj"]
 [ext_resource type="AudioStream" uid="uid://c5c70i6rva7p6" path="res://assets/sounds/player/CarEngine_loop.wav" id="4_ugvu0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp86"]
-size = Vector2(18, 19)
-
 [node name="Car" type="CharacterBody2D" groups=["car"]]
-z_index = -1
+z_index = 1
 position = Vector2(629, 432)
 rotation = -6.28318
 script = ExtResource("1_r7fhn")
@@ -17,26 +14,26 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 4.71238
-texture = ExtResource("2_r1g1e")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
-rotation = -1.57081
-shape = SubResource("RectangleShape2D_3qp86")
+texture = ExtResource("2_vrnpw")
 
 [node name="CarTrails" parent="." instance=ExtResource("3_nuoqj")]
-position = Vector2(8.00004, 4.99995)
+z_index = -1
+position = Vector2(6.48499e-05, 9.99999)
 rotation = -1.57081
 emitting = false
 amount = 15
 
 [node name="CarTrails2" parent="." instance=ExtResource("3_nuoqj")]
-position = Vector2(7.99995, -4.00006)
+z_index = -1
+position = Vector2(-8.01086e-05, -9.99999)
 rotation = -1.57081
 emitting = false
 amount = 15
 
 [node name="CarDriving" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ugvu0")
-volume_db = -3.0
+volume_db = -7.0
 max_distance = 8000.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-20.0001, -9.99988, -11.0001, -9.99994, -11.0001, -5.99994, -6.00006, -5.99997, -6.00006, -11, 1.99994, -11, 2.00006, 12, -5.99994, 12, -6, 6.00003, -10, 6.00006, -9.99994, 10.0001, -19.9999, 10.0001, -20, 6.00012, -23, 4.00012, -23, -2.99988, -21.0001, -5.99988, -19.0001, -5.99988)

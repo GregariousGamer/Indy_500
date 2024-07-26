@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://1ml0u0oxxm6n"]
+[gd_scene load_steps=2 format=3 uid="uid://1ml0u0oxxm6n"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/main.gd" id="1_fgade"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_fgade")
+
+[node name="MainMenu" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MainMenu"]
+
+[node name="SelectLevel" type="Button" parent="MainMenu"]
+offset_right = 85.0
+offset_bottom = 26.0
+
+[node name="Label" type="Label" parent="MainMenu/SelectLevel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PRESS ME"
+
+[connection signal="pressed" from="MainMenu/SelectLevel" to="." method="_on_select_level_pressed"]

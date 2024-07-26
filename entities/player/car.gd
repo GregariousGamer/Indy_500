@@ -3,29 +3,29 @@ extends CharacterBody2D
 signal emit_particles
 signal car_sound
 
-const acceleration: float = 1.0
+const acceleration: float = 1.5
 
-@export var speed: float = 2.5
-@export var rotation_speed: float = 2.5
-@export var friction: float = acceleration / speed * 1.5
+@export var speed: float = 3.5
+@export var rotation_speed: float = 1.75
+@export var friction: float = acceleration / speed * 2.5
 @export var move_input: float
 @export var rotation_direction: float
 @export var max_speed: float = 1000.0
 @export var turn_speed_minimum: float = 30.0
 
 var pitch_minimum: float = 1.0
-var pitch_maximum: float = 1.25
+var pitch_maximum: float = 1.5
 
 @onready var car_trails: GPUParticles2D = $CarTrails
 @onready var car_trails_2: GPUParticles2D = $CarTrails2
-
 @onready var car_driving: AudioStreamPlayer2D = $CarDriving
 
 func _ready() -> void:
 	self.connect("emit_particles", emit_particles_func)
 	self.connect("car_sound", car_sound_func)
-	self.scale *= 2.0
-
+	
+	self.scale *= 2
+	
 func _process(delta: float) -> void:	
 	# seperate from physics process
 	apply_traction(delta)
@@ -89,7 +89,7 @@ func apply_friction(delta: float) -> void:
 
 # called when right or left are held down, reduces speed for more realistic driving	
 func apply_turn_friction(delta: float) -> void:
-	velocity -= (velocity * friction * delta) / 1.25
+	velocity -= (velocity * friction * delta) / 1.5
 	
 func emit_particles_func(x: int) -> void:
 	if (Input.is_action_pressed("ui_left")

@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct301n8svipfi"]
+
+[ext_resource type="FontFile" uid="uid://u0g08gxyvj8r" path="res://assets/fonts/crackman.regular.otf" id="1_bnvba"]
+[ext_resource type="Script" path="res://UI/HUD/ScoreHUD/score_hud.gd" id="1_li7oe"]
+
+[node name="ScoreHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_li7oe")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreBox" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(1530, 50)
+layout_mode = 2
+
+[node name="TimeBox" type="HBoxContainer" parent="MarginContainer/ScoreBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 40
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1" type="HBoxContainer" parent="MarginContainer/ScoreBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player1Label" type="Label" parent="MarginContainer/ScoreBox/Player1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 40
+text = "P1 LAPS :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2" type="HBoxContainer" parent="MarginContainer/ScoreBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player2Label" type="Label" parent="MarginContainer/ScoreBox/Player2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 40
+text = "P2 Laps : "
+horizontal_alignment = 1
+vertical_alignment = 1
