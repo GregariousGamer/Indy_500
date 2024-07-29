@@ -1,22 +1,149 @@
-[gd_scene load_steps=2 format=3 uid="uid://1ml0u0oxxm6n"]
+[gd_scene load_steps=7 format=3 uid="uid://1ml0u0oxxm6n"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/main.gd" id="1_fgade"]
+[ext_resource type="FontFile" uid="uid://u0g08gxyvj8r" path="res://assets/fonts/crackman.regular.otf" id="2_aldui"]
+[ext_resource type="Theme" uid="uid://k52q8eescaxg" path="res://assets/materials/resources/buttons/button_theme.tres" id="2_uowrp"]
+[ext_resource type="Texture2D" uid="uid://cpho7hb3k200o" path="res://UI/MainMenu/parallax_background_indy_500.png" id="3_4vp8e"]
+[ext_resource type="Script" path="res://UI/MainMenu/MenuBackgroundSprite.gd" id="4_2ijxv"]
+[ext_resource type="AudioStream" uid="uid://cexsqvto27afq" path="res://assets/sounds/UI_sounds/button_click_sound.wav" id="5_3jf0x"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fgade")
 
 [node name="MainMenu" type="Node" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="MainMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -105.5
+offset_right = 105.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="SelectLevel" type="Button" parent="MainMenu"]
-offset_right = 85.0
-offset_bottom = 26.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="MainMenu/SelectLevel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "PRESS ME"
+[node name="TrackBox" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
 
-[connection signal="pressed" from="MainMenu/SelectLevel" to="." method="_on_select_level_pressed"]
+[node name="LevelButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/TrackBox" groups=["button"]]
+layout_mode = 2
+theme = ExtResource("2_uowrp")
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "TRACK"
+
+[node name="LevelLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/TrackBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.227451, 0.615686, 1)
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayersBox" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayersButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/PlayersBox" groups=["button"]]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_uowrp")
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "PLAYERS"
+
+[node name="PlayersLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/PlayersBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.227451, 0.615686, 1)
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RaceType" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RaceTypeButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/RaceType"]
+layout_mode = 2
+theme = ExtResource("2_uowrp")
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "TYPE"
+
+[node name="RaceTypeLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/RaceType"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290196, 0.141176, 0.501961, 1)
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "RACE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LapsLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/RaceType"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290196, 0.141176, 0.501961, 1)
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 32
+text = "LAPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuantityButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/RaceType"]
+layout_mode = 2
+theme = ExtResource("2_uowrp")
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 32
+text = "3"
+
+[node name="StartBox" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/StartBox" groups=["button"]]
+layout_mode = 2
+theme = ExtResource("2_uowrp")
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "START"
+
+[node name="Title" type="VBoxContainer" parent="MainMenu"]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MainMenu/Title"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 128
+text = "INDY
+500"
+
+[node name="MenuBackgroundSprite" type="Sprite2D" parent="."]
+position = Vector2(-203, -51)
+texture = ExtResource("3_4vp8e")
+centered = false
+script = ExtResource("4_2ijxv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(764, 335)
+
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3jf0x")
+volume_db = 4.0
+
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/TrackBox/LevelButton" to="." method="_on_level_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/PlayersBox/PlayersButton" to="." method="_on_players_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/RaceType/RaceTypeButton" to="." method="_on_race_type_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/RaceType/QuantityButton" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/StartBox/StartButton" to="." method="_on_start_button_pressed"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsb12q47if0yo"]
+
+[ext_resource type="Script" path="res://entities/environment/track_generals/lap_start_noise.gd" id="1_xonvp"]
+[ext_resource type="AudioStream" uid="uid://c2jle230q11px" path="res://assets/sounds/track_sounds/lap_start_sound.wav" id="2_tpcia"]
+
+[node name="LapStartNoise" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_xonvp")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="RaceStartSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_tpcia")
+volume_db = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

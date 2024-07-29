@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2u2wu1vk8qex"]
+[gd_scene load_steps=11 format=3 uid="uid://2u2wu1vk8qex"]
 
 [ext_resource type="Texture2D" uid="uid://7qf8pcijso58" path="res://entities/environment/test_level/track_palette.png" id="1_j5pv2"]
 [ext_resource type="Script" path="res://entities/environment/track_1/track_1.gd" id="1_qv888"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ct301n8svipfi" path="res://scenes/HUDs/score_hud.tscn" id="3_q8apc"]
 [ext_resource type="PackedScene" uid="uid://bl8q0flmltdxd" path="res://scenes/player/car_2.tscn" id="3_vcg43"]
 [ext_resource type="AudioStream" uid="uid://dd6gc1b8amb67" path="res://assets/sounds/track_sounds/lap_sound.wav" id="4_l11jx"]
+[ext_resource type="PackedScene" uid="uid://dsb12q47if0yo" path="res://scenes/race_details/lap_start_noise.tscn" id="5_0g24n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yca8c"]
 texture = ExtResource("1_j5pv2")
@@ -37,6 +38,7 @@ script = ExtResource("1_qv888")
 player_car = ExtResource("2_b1v0u")
 player2_car = ExtResource("3_vcg43")
 score_hud = ExtResource("3_q8apc")
+race_start_sound = ExtResource("5_0g24n")
 
 [node name="Tilemaps" type="Node" parent="."]
 

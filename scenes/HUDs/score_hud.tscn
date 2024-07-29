@@ -1,9 +1,61 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct301n8svipfi"]
+[gd_scene load_steps=6 format=3 uid="uid://ct301n8svipfi"]
 
 [ext_resource type="FontFile" uid="uid://u0g08gxyvj8r" path="res://assets/fonts/crackman.regular.otf" id="1_bnvba"]
 [ext_resource type="Script" path="res://UI/HUD/ScoreHUD/score_hud.gd" id="1_li7oe"]
+[ext_resource type="Theme" uid="uid://k52q8eescaxg" path="res://assets/materials/resources/buttons/button_theme.tres" id="3_ss0a4"]
+
+[sub_resource type="GDScript" id="GDScript_n0wys"]
+script/source = "extends Control
+
+var total_minutes: int
+var seconds: int # called 60 fps by physics process
+var total_seconds: int
+var miliseconds: float
+
+@onready var minutes_label: Label = $MarginContainer/HBoxContainer/MinutesLabel
+@onready var seconds_label: Label = $MarginContainer/HBoxContainer/SecondsLabel
+@onready var milliseconds_label: Label = $MarginContainer/HBoxContainer/MillisecondsLabel
+
+func _physics_process(delta: float) -> void: # called 60 times a second
+	seconds += 1
+	miliseconds += 16.7
+	
+	milliseconds_label.text = \"%03d\" %miliseconds
+	
+	if miliseconds >= 1000:
+		miliseconds = 0.00
+	
+	if total_seconds == 60:
+		total_minutes += 1
+		if total_minutes < 10:
+			minutes_label.text = \"0\" + str(total_minutes) + \":\"
+		else:
+			minutes_label.text = str(total_minutes) + \":\"
+	if seconds == 60:
+		total_seconds += 1
+		if total_seconds < 10:
+			seconds_label.text = \"0\" + str(total_seconds) + \":\"
+		else:
+			seconds_label.text = str(total_seconds) + \":\"
+		seconds = 0
+
+"
+
+[sub_resource type="PackedScene" id="PackedScene_ho5bk"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("TrackTimer", "layout_mode", "anchors_preset", "anchor_right", "grow_horizontal", "script", "Control", "MarginContainer", "offset_bottom", "HBoxContainer", "MinutesLabel", "text", "horizontal_alignment", "vertical_alignment", "Label", "Spacer", "SecondsLabel", "Spacer2", "MillisecondsLabel"),
+"node_count": 8,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 6, 0, -1, 5, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 0, 0, 0, 7, 7, -1, 5, 1, 5, 2, 1, 3, 2, 8, 6, 4, 3, 0, 1, 0, 9, 9, -1, 1, 1, 3, 0, 2, 0, 14, 10, -1, 4, 1, 3, 11, 7, 12, 3, 13, 5, 0, 2, 0, 14, 15, -1, 1, 1, 3, 0, 2, 0, 14, 16, -1, 4, 1, 3, 11, 7, 12, 3, 13, 5, 0, 2, 0, 14, 17, -1, 1, 1, 3, 0, 2, 0, 14, 18, -1, 4, 1, 3, 11, 8, 12, 3, 13, 5, 0),
+"variants": [3, 10, 1.0, 2, SubResource("GDScript_n0wys"), 1, 23.0, "00: ", "00"],
+"version": 3
+}
 
 [node name="ScoreHUD" type="Control"]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -12,6 +64,7 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_li7oe")
+race_timer = SubResource("PackedScene_ho5bk")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -29,17 +82,47 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TimeLabel" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+[node name="MinutesLabel" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_outline_color = Color(0.99558, 0.99558, 0.99558, 1)
 theme_override_fonts/font = ExtResource("1_bnvba")
 theme_override_font_sizes/font_size = 40
-text = "TEST"
-horizontal_alignment = 1
+text = "00:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Spacer" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+layout_mode = 2
+
+[node name="SecondsLabel" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_outline_color = Color(0.99558, 0.99558, 0.99558, 1)
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 40
+text = "00:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Spacer2" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+layout_mode = 2
+
+[node name="MillisecondsLabel" type="Label" parent="MarginContainer/ScoreBox/TimeBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_outline_color = Color(0.99558, 0.99558, 0.99558, 1)
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 40
+text = "00"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Player1" type="HBoxContainer" parent="MarginContainer/ScoreBox"]
@@ -50,9 +133,9 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_bnvba")
 theme_override_font_sizes/font_size = 40
 text = "P1 LAPS :"
@@ -67,11 +150,72 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.99558, 0.99558, 0.99558, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0.501961, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_bnvba")
 theme_override_font_sizes/font_size = 40
 text = "P2 Laps : "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" type="Node" parent="."]
+process_mode = 3
+
+[node name="PauseMenuLayer" type="CanvasLayer" parent="PauseMenu"]
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/PauseMenuLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.556863, 0.501961, 0.639216)
+
+[node name="PauseMenuBox" type="VBoxContainer" parent="PauseMenu/PauseMenuLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="Spacer2" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="Spacer3" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+modulate = Color(0.0196078, 0.121569, 0.223529, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 64
+text = "PAUSED"
+
+[node name="Spacer4" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="Spacer5" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="Spacer6" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+theme = ExtResource("3_ss0a4")
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 64
+text = "RETRY"
+
+[node name="StartTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 0.6
+one_shot = true
+
+[connection signal="pressed" from="PauseMenu/PauseMenuLayer/PauseMenuBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
