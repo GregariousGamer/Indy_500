@@ -30,29 +30,37 @@ var level: int = 1
 var num_players: int = 1
 
 func _on_start_button_pressed() -> void:
-	GlobalVars.total_players = num_players
+	GlobalVars.total_players = num_players # determines whether one or two players spawn
 	if race_type_label.text == "RACE":
-		GlobalVars.lap_select = laps_number[laps_number_counter]
+		GlobalVars.lap_select = laps_number[laps_number_counter] # total number of laps for victory
 	button_sound.play()
+	
 	if level == 1:
 		get_tree().change_scene_to_file(GlobalVars.track_1)
 
+# one or two players, shows start button because can't start tag or points w/ 1 player
 func _on_players_button_pressed() -> void:
 	button_sound.play()
+	
 	if num_players == 1:
 		num_players = 2
 		players_label.text = str(2)
+	
 	elif num_players == 2:
 		num_players = 1
 		players_label.text = str(1)
-
-	if players_label.text == "2":
-		start_button.show()
+	
+	if race_type_label.text != "RACE":
+		if players_label.text != "2":
+			start_button.hide()
+		else:
+			start_button.show()
 		
-
+# does nothing yet, only one level
 func _on_level_button_pressed() -> void:
 	button_sound.play()
 
+# race, points, tag and changes labels accordingly
 func _on_race_type_button_pressed() -> void:
 	button_sound.play()
 	if race_types_counter == 2:
@@ -69,10 +77,15 @@ func _on_race_type_button_pressed() -> void:
 		start_button.show()
 		quantity_button.text = str(laps_number[0])
 	elif race_types_counter == 1:
+		if players_label.text != "2":
+			start_button.hide()
 		quantity_button.text = str(points_total[0])
 	elif race_types_counter == 2:
+		if players_label.text != "2":
+			start_button.hide()
 		quantity_button.text = str(time_cap[0])
-		
+
+# changes labels to reflect the current type of race		
 func _on_quantity_button_pressed() -> void:
 	button_sound.play()
 	if race_type_label.text == "RACE":
