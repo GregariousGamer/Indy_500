@@ -44,6 +44,7 @@ func _on_start_button_pressed() -> void:
 	button_sound.play()
 	
 	if level == 1:
+		GlobalVars.track_select = 1
 		get_tree().change_scene_to_file(GlobalVars.track_1)
 
 # one or two players, shows start button because can't start tag or points w/ 1 player

@@ -19,8 +19,6 @@ var player_lap_tracker_2: int
 var new_hud: Control
 
 var new_point_box: Sprite2D
-var can_spawn_point_box: bool = true
-
 
 @onready var car_start_marker: Marker2D = $Player/CarStartMarker
 @onready var car_2_start_marker: Marker2D = $Player/Car2StartMarker
@@ -28,6 +26,7 @@ var can_spawn_point_box: bool = true
 
 
 func _ready() -> void:
+	SignalManager.connect("can_spawn_point", spawn_point_box)
 	
 	new_car = player_car.instantiate()
 	new_car.position = car_start_marker.position
@@ -45,9 +44,7 @@ func _ready() -> void:
 	add_child(new_hud)
 	
 	if GlobalVars.race_style == "POINTS":
-		new_point_box = point_box.instantiate()
-		new_point_box.position = Vector2(-650, -150)
-		add_child(new_point_box)
+		spawn_point_box()
 		
 	var new_race_start = race_start_sound.instantiate()
 	add_child(new_race_start)
@@ -97,9 +94,6 @@ func _on_three_body_entered(body: Node2D) -> void:
 		&& !player_checkpoint_tracker_2.has(3)):
 			player_checkpoint_tracker_2.append(3)
 			
-# points logic
-func player_1_add_point() -> void:
-	pass
-
-func player_2_add_point() -> void:
-	pass
+func spawn_point_box() -> void:
+	new_point_box = point_box.instantiate()
+	add_child(new_point_box)

@@ -9,6 +9,7 @@ size = Vector2(16, 16)
 [node name="PointBox" type="Sprite2D"]
 texture = ExtResource("1_ro5hp")
 script = ExtResource("2_houmd")
+metadata/_edit_group_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
