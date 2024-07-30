@@ -14,10 +14,10 @@ func _ready() -> void:
 			spawn_location_x = randi_range(-270, 270)
 			spawn_location_y = randi_range(-155, -65)
 		elif random_quadrant == 2:
-			spawn_location_x = randi_range(400, -615)
+			spawn_location_x = randi_range(400, 615)
 			spawn_location_y = randi_range(-245, 245)
-		else:
-			spawn_location_x = randi_range(-270, -270)
+		elif random_quadrant == 3:
+			spawn_location_x = randi_range(-270, 270)
 			spawn_location_y = randi_range(75, 165)
 	
 	
