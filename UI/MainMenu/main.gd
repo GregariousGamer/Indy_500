@@ -33,6 +33,14 @@ func _on_start_button_pressed() -> void:
 	GlobalVars.total_players = num_players # determines whether one or two players spawn
 	if race_type_label.text == "RACE":
 		GlobalVars.lap_select = laps_number[laps_number_counter] # total number of laps for victory
+		GlobalVars.race_style = "RACE"
+	elif race_type_label.text == "POINTS":
+		GlobalVars.race_style = "POINTS"
+		GlobalVars.points_tag_total = int(quantity_button.text)
+	elif race_type_label.text == "TAG":
+		GlobalVars.race_style = "TAG"
+		GlobalVars.points_tag_total = int(quantity_button.text)
+		
 	button_sound.play()
 	
 	if level == 1:

@@ -3,7 +3,8 @@ extends Node
 var track_select: int
 var total_players: int
 var lap_select: int
-var race_style: int
+var race_style: String
+var points_tag_total: int
 
 var hud_start: bool = false
 

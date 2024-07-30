@@ -189,7 +189,7 @@ layout_mode = 2
 [node name="Spacer3" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+[node name="PauseLabel" type="Label" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
 modulate = Color(0.0196078, 0.121569, 0.223529, 1)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_bnvba")
@@ -212,10 +212,25 @@ theme_override_fonts/font = ExtResource("1_bnvba")
 theme_override_font_sizes/font_size = 64
 text = "RETRY"
 
+[node name="ResumeButton" type="Button" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+process_mode = 3
+layout_mode = 2
+theme = ExtResource("3_ss0a4")
+theme_override_fonts/font = ExtResource("1_bnvba")
+theme_override_font_sizes/font_size = 64
+text = "RESUME"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/PauseMenuLayer/PauseMenuBox"]
+layout_mode = 2
+theme = ExtResource("3_ss0a4")
+text = "QUIT"
+
 [node name="StartTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 0.6
 one_shot = true
 
 [connection signal="pressed" from="PauseMenu/PauseMenuLayer/PauseMenuBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenuLayer/PauseMenuBox/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenuLayer/PauseMenuBox/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
