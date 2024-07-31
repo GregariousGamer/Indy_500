@@ -45,6 +45,9 @@ func _ready() -> void:
 	
 	if GlobalVars.race_style == "POINTS":
 		spawn_point_box()
+	
+	if GlobalVars.race_style == "TAG":
+		spawn_point_box()
 		
 	var new_race_start = race_start_sound.instantiate()
 	add_child(new_race_start)
@@ -97,3 +100,4 @@ func _on_three_body_entered(body: Node2D) -> void:
 func spawn_point_box() -> void:
 	new_point_box = point_box.instantiate()
 	add_child(new_point_box)
+

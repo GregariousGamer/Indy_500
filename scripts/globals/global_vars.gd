@@ -6,6 +6,11 @@ var lap_select: int
 var race_style: String
 var points_tag_total: int
 
+var player_one_glowing: bool = false
+var player_two_glowing: bool = false
+
+var point_box_deleted: bool = false
+
 var hud_start: bool = false
 
 var main: String = "res://scenes/main/main.tscn"

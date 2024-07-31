@@ -7,3 +7,4 @@ signal player_1_point
 signal player_2_point
 
 signal can_spawn_point
+

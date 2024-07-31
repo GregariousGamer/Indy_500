@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://di37k533o31td"]
+[gd_scene load_steps=5 format=3 uid="uid://di37k533o31td"]
 
 [ext_resource type="Texture2D" uid="uid://mfgd36urow4o" path="res://entities/enemies/points_block.png" id="1_ro5hp"]
 [ext_resource type="Script" path="res://entities/enemies/point_box.gd" id="2_houmd"]
+[ext_resource type="AudioStream" uid="uid://dxhka163n2eqp" path="res://assets/sounds/point_sound/block_pickup.wav" id="3_n1oin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwam0"]
 size = Vector2(16, 16)
@@ -12,6 +13,9 @@ script = ExtResource("2_houmd")
 metadata/_edit_group_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
+
+[node name="DeleteNoise" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("3_n1oin")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_dwam0")

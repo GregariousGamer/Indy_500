@@ -1,4 +1,5 @@
 extends Node2D
+const TRACK_1_SNIP = preload("res://UI/MainMenu/track_1_snip.png")
 
 @onready var level_button: Button = $MainMenu/MarginContainer/VBoxContainer/TrackBox/LevelButton
 @onready var level_label: Label = $MainMenu/MarginContainer/VBoxContainer/TrackBox/LevelLabel
@@ -12,6 +13,7 @@ extends Node2D
 @onready var laps_label: Label = $MainMenu/MarginContainer/VBoxContainer/RaceType/LapsLabel
 @onready var quantity_button: Button = $MainMenu/MarginContainer/VBoxContainer/RaceType/QuantityButton
 
+@onready var track_pic: Sprite2D = $MainMenu/TrackSpriteContainer/TrackPic
 
 var race_types: Array[String] = ["RACE", "POINTS", "TAG"]
 var race_types_counter: int
@@ -28,6 +30,13 @@ var points_total_counter: int
 
 var level: int = 1
 var num_players: int = 1
+
+func _ready() -> void:
+	track_pic.scale *= 0.2
+	
+func _process(_delta: float) -> void:
+	if level_label.text == "1":
+		track_pic.texture = TRACK_1_SNIP
 
 func _on_start_button_pressed() -> void:
 	GlobalVars.total_players = num_players # determines whether one or two players spawn

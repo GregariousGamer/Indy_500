@@ -1,5 +1,8 @@
 extends Sprite2D
 
+@onready var delete_noise: AudioStreamPlayer2D = $Area2D/DeleteNoise
+
+
 func _ready() -> void:
 	
 	if GlobalVars.track_select == 1:
@@ -25,12 +28,30 @@ func _ready() -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("car"):
-
-		if body.is_in_group("player_1"):
-			SignalManager.player_1_point.emit()
-		if body.is_in_group("player_2"):
-			SignalManager.player_2_point.emit()
-			
-	SignalManager.can_spawn_point.emit()
-	queue_free()
+	if GlobalVars.race_style == "POINTS":
+		delete_noise.play()
+		if body.is_in_group("car"):
+	
+			if body.is_in_group("player_1"):
+				SignalManager.player_1_point.emit()
+			if body.is_in_group("player_2"):
+				SignalManager.player_2_point.emit()
+				
+		SignalManager.can_spawn_point.emit()
+		self.hide()
+		await get_tree().create_timer(0.5).timeout # needed because otherwise queue_free messes with sound
+		queue_free()
+		
+	if GlobalVars.race_style == "TAG":
+		delete_noise.play()
+		GlobalVars.point_box_deleted = true
+		if body.is_in_group("car"):
+			if GlobalVars.point_box_deleted == true:
+				if body.is_in_group("player_1"):
+					GlobalVars.player_one_glowing = true
+				if body.is_in_group("player_2"):
+					GlobalVars.player_two_glowing = true
+					
+		self.hide()
+		await get_tree().create_timer(0.5).timeout # needed because otherwise queue_free messes with sound
+		queue_free()

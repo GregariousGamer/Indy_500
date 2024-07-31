@@ -16,15 +16,20 @@ const acceleration: float = 1.5
 var pitch_minimum: float = 1.0
 var pitch_maximum: float = 1.5
 
+var seconds: int
+
 @onready var car_trails: GPUParticles2D = $CarTrails
 @onready var car_trails_2: GPUParticles2D = $CarTrails2
 @onready var car_driving: AudioStreamPlayer2D = $CarDriving
+@onready var animation_player: AnimationPlayer = $Sprite2D/AnimationPlayer
+
 
 func _ready() -> void:
 	self.connect("emit_particles", emit_particles_func)
 	self.connect("car_sound", car_sound_func)
 	
 	self.scale *= 2
+	animation_player.stop()
 	
 func _process(delta: float) -> void:	
 	# seperate from physics process
@@ -41,7 +46,33 @@ func _process(delta: float) -> void:
 		if !car_driving.pitch_scale < 0.99:
 			car_driving.pitch_scale -= 0.005
  
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	if GlobalVars.race_style == "TAG":
+		var collision_info = get_last_slide_collision()
+		if collision_info:
+			var colliding_body: Object = collision_info.get_collider()
+			if (colliding_body.is_in_group("car")
+			&& GlobalVars.point_box_deleted == true):
+				if GlobalVars.player_one_glowing == true:
+					GlobalVars.player_one_glowing = false
+					GlobalVars.player_two_glowing = true
+					
+				elif GlobalVars.player_one_glowing == false:
+					GlobalVars.player_one_glowing = true
+					GlobalVars.player_two_glowing = false
+		
+		if GlobalVars.player_two_glowing == true:
+			animation_player.play("flash")
+			if seconds == 60:
+				SignalManager.player_2_point.emit()
+		elif GlobalVars.player_two_glowing == false:
+			animation_player.stop()
+	if seconds > 60:
+		seconds = 0	
+
+	seconds += 1
+
+	
 	move_input = Input.get_axis("up", "down")
 	rotation_direction = Input.get_axis("left", "right")
 
@@ -56,6 +87,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = -(max_speed)
 		
 	move_and_slide() # necessary to move the car
+
+
 
 func apply_traction(delta: float) -> void:
 	var traction: Vector2 = Vector2.ZERO # can tell which direction going

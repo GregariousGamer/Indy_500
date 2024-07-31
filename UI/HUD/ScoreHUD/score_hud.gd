@@ -58,7 +58,7 @@ func _ready() -> void:
 	get_tree().paused = true
 
 		
-func _physics_process(delta: float) -> void: # called 60 times a second
+func _physics_process(_delta: float) -> void: # called 60 times a second
 
 	if Input.is_action_pressed("escape"):
 		if get_tree().paused == false:
@@ -68,6 +68,21 @@ func _physics_process(delta: float) -> void: # called 60 times a second
 
 	if GlobalVars.race_style == "RACE":
 		race_timer_time_clock()
+		
+	if GlobalVars.race_style == "TAG":
+		race_timer_time_clock()
+		
+		if GlobalVars.points_tag_total <= total_minutes:
+			if score_player_1 == score_player_2:
+				pause_label.text = "DRAW!!!\nPLAYER 1 - %d\nPLAYER 2 - %d" % [score_player_1, score_player_2]
+			elif score_player_1 > score_player_2:
+				pause_label.text = "PLAYER 1 WINS!!\nPLAYER 1 - %d\nPLAYER 2 - %d" % [score_player_1, score_player_2]
+			elif score_player_1 < score_player_2:
+				pause_label.text = "PLAYER 2 WINS!!!\nPLAYER 1 - %d\nPLAYER 2 - %d" % [score_player_1, score_player_2]						
+			pause_menu_layer.show()
+			retry_button.show()
+			resume_button.hide()
+			get_tree().paused = true
 
 
 ## updates scores for players and brings up pause menu when lap score achieved	
@@ -93,7 +108,11 @@ func update_score_label_p1() -> void:
 			retry_button.show()
 			resume_button.hide()
 			get_tree().paused = true
-		player_1_label.text = "P1 POINTS: " + str(score_player_1)	
+		player_1_label.text = "P1 POINTS: " + str(score_player_1)
+
+	if GlobalVars.race_style == "TAG":
+		score_player_1 += 1
+		player_1_label.text = "P1 POINTS: " + str(score_player_1)			
 
 func update_score_label_p2() -> void:
 	if GlobalVars.race_style == "RACE":
@@ -117,10 +136,18 @@ func update_score_label_p2() -> void:
 			retry_button.show()
 			resume_button.hide()
 			get_tree().paused = true
-		player_2_label.text = "P1 POINTS: " + str(score_player_2)		
+		player_2_label.text = "P1 POINTS: " + str(score_player_2)
+		
+	if GlobalVars.race_style == "TAG":
+		score_player_2 += 1
+		player_2_label.text = "P2 POINTS: " + str(score_player_2)			
 
 # resets level to race again
 func _on_retry_button_pressed() -> void:
+	GlobalVars.player_one_glowing = false
+	GlobalVars.player_two_glowing = false
+	GlobalVars.point_box_deleted = false
+	
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -161,3 +188,4 @@ func race_timer_time_clock() -> void:
 		else:
 			seconds_label.text = str(total_seconds) + ":"
 		seconds = 0
+	

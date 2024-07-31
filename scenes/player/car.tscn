@@ -1,20 +1,74 @@
-[gd_scene load_steps=5 format=3 uid="uid://qagomij3ohoo"]
+[gd_scene load_steps=12 format=3 uid="uid://qagomij3ohoo"]
 
+[ext_resource type="Shader" path="res://assets/materials/car/car.gdshader" id="1_4n5kq"]
+[ext_resource type="Shader" path="res://assets/materials/car/car_2.gdshader" id="1_mbepc"]
 [ext_resource type="Script" path="res://entities/player/car.gd" id="1_r7fhn"]
 [ext_resource type="Texture2D" uid="uid://d1rtan7wmp75m" path="res://entities/player/car2.png" id="2_vrnpw"]
 [ext_resource type="PackedScene" uid="uid://cnff8whxji775" path="res://scenes/particle_effects/car/car_trails.tscn" id="3_nuoqj"]
 [ext_resource type="AudioStream" uid="uid://c5c70i6rva7p6" path="res://assets/sounds/player/CarEngine_loop.wav" id="4_ugvu0"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1q2rn"]
+shader = ExtResource("1_mbepc")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e77jn"]
+shader = ExtResource("1_4n5kq")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="Animation" id="Animation_1a8nt"]
+resource_name = "flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [null, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ru41v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tcjkd"]
+_data = {
+"RESET": SubResource("Animation_ru41v"),
+"flash": SubResource("Animation_1a8nt")
+}
+
 [node name="Car" type="CharacterBody2D" groups=["car"]]
 z_index = 1
-position = Vector2(629, 432)
+material = SubResource("ShaderMaterial_1q2rn")
 rotation = -6.28318
 script = ExtResource("1_r7fhn")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_e77jn")
 rotation = 4.71238
 texture = ExtResource("2_vrnpw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_tcjkd")
+}
 
 [node name="CarTrails" parent="." instance=ExtResource("3_nuoqj")]
 z_index = -1
@@ -36,4 +90,4 @@ volume_db = -7.0
 max_distance = 8000.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-20.0001, -9.99988, -11.0001, -9.99994, -11.0001, -5.99994, -6.00006, -5.99997, -6.00006, -11, 1.99994, -11, 2.00006, 12, -5.99994, 12, -6, 6.00003, -10, 6.00006, -9.99994, 10.0001, -19.9999, 10.0001, -20, 6.00012, -23, 4.00012, -23, -2.99988, -21.0001, -5.99988, -19.0001, -5.99988)
+polygon = PackedVector2Array(-20.0001, -9.99988, -11.0001, -9.99994, -11.0001, -5.99994, -6.00006, -5.99997, -6.00006, -12, 1.99994, -12, 2.00006, 12, -5.99994, 12, -6, 6.00003, -10, 6.00006, -9.99994, 10.0001, -19.9999, 10.0001, -20, 6.00012, -24, 4.00012, -24, -3.99988, -22, -5.99989, -20, -5.9999)
