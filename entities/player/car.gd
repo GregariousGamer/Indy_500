@@ -30,8 +30,10 @@ func _ready() -> void:
 	self.connect("car_sound", car_sound_func)
 	
 	self.scale *= 2
-	
-	animation_player.stop()
+	if GlobalVars.slippy_physics == true:
+		self.rotation_speed *= 1.25
+		self.speed *= 0.75
+	animation_player.stop()		
 	
 func _process(delta: float) -> void:	
 	# seperate from physics process
@@ -54,7 +56,8 @@ func _physics_process(_delta: float) -> void:
 		if collision_info:
 			var colliding_body: Object = collision_info.get_collider()
 			if (colliding_body.is_in_group("car")
-			&& GlobalVars.point_box_deleted == true):
+			&& GlobalVars.point_box_deleted == true
+			&& GlobalVars.player_cars_can_interact == true):
 				if GlobalVars.player_one_glowing == true:
 					GlobalVars.player_one_glowing = false
 					GlobalVars.player_two_glowing = true
@@ -62,6 +65,9 @@ func _physics_process(_delta: float) -> void:
 				elif GlobalVars.player_one_glowing == false:
 					GlobalVars.player_one_glowing = true
 					GlobalVars.player_two_glowing = false
+			
+			GlobalVars.player_cars_can_interact = false
+			GlobalFunctions.cars_can_interact()
 		
 		if GlobalVars.player_one_glowing == true:
 			animation_player.play("flash")
@@ -121,11 +127,17 @@ func apply_traction(delta: float) -> void:
 
 # called every tick to slow the car down if not moving	
 func apply_friction(delta: float) -> void:
-	velocity -= velocity * friction * delta 
+	if !GlobalVars.slippy_physics:
+		velocity -= velocity * friction * delta
+	elif GlobalVars.slippy_physics:
+		velocity -= velocity * (friction / 3.0) * delta
 
 # called when right or left are held down, reduces speed for more realistic driving	
 func apply_turn_friction(delta: float) -> void:
-	velocity -= (velocity * friction * delta) / 1.5
+	if !GlobalVars.slippy_physics:
+		velocity -= (velocity * friction * delta) / 1.5
+	elif GlobalVars.slippy_physics:
+		velocity -= (velocity * friction * delta) / 2.0
 	
 func emit_particles_func(x: int) -> void:
 	if (Input.is_action_pressed("ui_left")

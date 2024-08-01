@@ -15,6 +15,10 @@ const TRACK_1_SNIP = preload("res://UI/MainMenu/track_1_snip.png")
 
 @onready var track_pic: Sprite2D = $MainMenu/TrackSpriteContainer/TrackPic
 
+@onready var slippy_physics_button: Button = $MainMenu/SlippyPhysics/VBoxContainer/SlippyPhysicsButton
+@onready var slippy_physics_label: Label = $MainMenu/SlippyPhysics/VBoxContainer/SlippyPhysicsLabel
+
+
 var race_types: Array[String] = ["RACE", "POINTS", "TAG"]
 var race_types_counter: int
 
@@ -33,6 +37,8 @@ var num_players: int = 1
 
 func _ready() -> void:
 	track_pic.scale *= 0.2
+	slippy_physics_label.text = "OFF"
+	GlobalVars.slippy_physics = false
 	
 func _process(_delta: float) -> void:
 	if level_label.text == "1":
@@ -129,3 +135,12 @@ func _on_quantity_button_pressed() -> void:
 			time_cap_counter += 1
 			
 		quantity_button.text = str(time_cap[time_cap_counter])
+
+
+func _on_slippy_physics_button_pressed() -> void:
+	if slippy_physics_label.text == "OFF":
+		slippy_physics_label.text = "ON"
+		GlobalVars.slippy_physics = true
+	else: 
+		slippy_physics_label.text = "OFF"
+		GlobalVars.slippy_physics = false

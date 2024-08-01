@@ -11,6 +11,10 @@ var player_two_glowing: bool = false
 
 var point_box_deleted: bool = false
 
+var player_cars_can_interact: bool = true
+
+var slippy_physics: bool = false
+
 var hud_start: bool = false
 
 var main: String = "res://scenes/main/main.tscn"

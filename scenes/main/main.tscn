@@ -140,6 +140,29 @@ size_flags_vertical = 6
 
 [node name="TrackPic" type="Sprite2D" parent="MainMenu/TrackSpriteContainer"]
 
+[node name="SlippyPhysics" type="MarginContainer" parent="MainMenu"]
+offset_left = 1084.0
+offset_top = 500.0
+offset_right = 1488.0
+offset_bottom = 666.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/SlippyPhysics"]
+layout_mode = 2
+
+[node name="SlippyPhysicsButton" type="Button" parent="MainMenu/SlippyPhysics/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_uowrp")
+text = "Ice Physics"
+
+[node name="SlippyPhysicsLabel" type="Label" parent="MainMenu/SlippyPhysics/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290196, 0.141176, 0.501961, 1)
+theme_override_fonts/font = ExtResource("2_aldui")
+theme_override_font_sizes/font_size = 64
+text = "ON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MenuBackgroundSprite" type="Sprite2D" parent="."]
 position = Vector2(-203, -51)
 texture = ExtResource("3_4vp8e")
@@ -158,3 +181,4 @@ volume_db = 4.0
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/RaceType/RaceTypeButton" to="." method="_on_race_type_button_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/RaceType/QuantityButton" to="." method="_on_quantity_button_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/StartBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/SlippyPhysics/VBoxContainer/SlippyPhysicsButton" to="." method="_on_slippy_physics_button_pressed"]
