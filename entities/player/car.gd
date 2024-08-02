@@ -23,13 +23,15 @@ var seconds: int
 @onready var car_driving: AudioStreamPlayer2D = $CarDriving
 @onready var animation_player: AnimationPlayer = $Sprite2D/AnimationPlayer
 
-
-
 func _ready() -> void:
 	self.connect("emit_particles", emit_particles_func)
 	self.connect("car_sound", car_sound_func)
 	
-	self.scale *= 2
+	if GlobalVars.track_select == 1:
+		self.scale *= 2
+	if GlobalVars.track_select == 2:
+		self.scale *= 1.5
+		
 	if GlobalVars.slippy_physics == true:
 		self.rotation_speed *= 1.25
 		self.speed *= 0.75
@@ -49,7 +51,12 @@ func _process(delta: float) -> void:
 	elif !Input.is_action_pressed("ui_up"):
 		if !car_driving.pitch_scale < 0.99:
 			car_driving.pitch_scale -= 0.005
- 
+	
+	if self.position.y > 355:
+		global_position.y = -355
+	if self.position.y < -355:
+		global_position.y = 355
+
 func _physics_process(_delta: float) -> void:
 	if GlobalVars.race_style == "TAG":
 		var collision_info = get_last_slide_collision()

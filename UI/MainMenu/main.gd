@@ -61,6 +61,11 @@ func _on_start_button_pressed() -> void:
 	if level == 1:
 		GlobalVars.track_select = 1
 		get_tree().change_scene_to_file(GlobalVars.track_1)
+	
+	if level == 2:
+		GlobalVars.track_select = 2
+		get_tree().change_scene_to_file(GlobalVars.track_2)
+	
 
 # one or two players, shows start button because can't start tag or points w/ 1 player
 func _on_players_button_pressed() -> void:
@@ -83,6 +88,8 @@ func _on_players_button_pressed() -> void:
 # does nothing yet, only one level
 func _on_level_button_pressed() -> void:
 	button_sound.play()
+	level = 2
+	level_label.text = "2"
 
 # race, points, tag and changes labels accordingly
 func _on_race_type_button_pressed() -> void:
@@ -138,6 +145,7 @@ func _on_quantity_button_pressed() -> void:
 
 
 func _on_slippy_physics_button_pressed() -> void:
+	button_sound.play()
 	if slippy_physics_label.text == "OFF":
 		slippy_physics_label.text = "ON"
 		GlobalVars.slippy_physics = true

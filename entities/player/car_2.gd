@@ -28,7 +28,11 @@ func _ready() -> void:
 	self.connect("emit_particles", emit_particles_func)
 	self.connect("car_sound", car_sound_func)
 	
-	self.scale *= 2
+	if GlobalVars.track_select == 1:
+		self.scale *= 2
+	if GlobalVars.track_select == 2:
+		self.scale *= 1.5
+		
 	if GlobalVars.slippy_physics == true:
 		self.rotation_speed *= 1.25
 		self.speed *= 0.75

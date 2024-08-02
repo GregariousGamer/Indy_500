@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cpylblm7jkprm"]
+
+[ext_resource type="FontFile" uid="uid://u0g08gxyvj8r" path="res://assets/fonts/crackman.regular.otf" id="1_k44a1"]
+
+[resource]
+font = ExtResource("1_k44a1")
+font_size = 64
+font_color = Color(0.290196, 0.141176, 0.501961, 1)
+outline_color = Color(0.290196, 0.141176, 0.501961, 1)

@@ -17,21 +17,6 @@ shader = ExtResource("1_4n5kq")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = null
 
-[sub_resource type="Animation" id="Animation_1a8nt"]
-resource_name = "flash"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [null, 1.0, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_ru41v"]
 length = 0.001
 tracks/0/type = "value"
@@ -45,6 +30,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_1a8nt"]
+resource_name = "flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [null, 1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tcjkd"]

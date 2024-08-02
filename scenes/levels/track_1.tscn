@@ -104,8 +104,6 @@ shape = SubResource("RectangleShape2D_d0bgt")
 [node name="lap_sound" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("4_l11jx")
 
-[node name="HUD" type="Node" parent="."]
-
 [connection signal="body_entered" from="Checkpoints/Start" to="." method="_on_start_body_entered"]
 [connection signal="body_entered" from="Checkpoints/One" to="." method="_on_one_body_entered"]
 [connection signal="body_entered" from="Checkpoints/Two" to="." method="_on_two_body_entered"]

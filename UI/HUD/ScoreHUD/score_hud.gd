@@ -1,4 +1,5 @@
 extends Control
+const HUD_LABEL_SETTINGS = preload("res://assets/materials/track_2/hud_label_settings.tres")
 
 @export var race_timer: PackedScene
 
@@ -31,6 +32,15 @@ var miliseconds: float
 var total_laps: int
 
 func _ready() -> void:
+	
+	if GlobalVars.track_select == 2:
+		minutes_label.label_settings = HUD_LABEL_SETTINGS
+		seconds_label.label_settings = HUD_LABEL_SETTINGS
+		milliseconds_label.label_settings = HUD_LABEL_SETTINGS
+		player_1_label.label_settings = HUD_LABEL_SETTINGS
+		player_2_label.label_settings = HUD_LABEL_SETTINGS
+		print("hi")	
+
 	SignalManager.connect("player_1_point", update_score_label_p1)
 	SignalManager.connect("player_2_point", update_score_label_p2)
 	
@@ -53,6 +63,7 @@ func _ready() -> void:
 		total_laps = GlobalVars.lap_select # determines when race is over
 	if GlobalVars.points_tag_total > 0:
 		total_laps = GlobalVars.points_tag_total
+
 		
 	start_timer.start()	
 	get_tree().paused = true
