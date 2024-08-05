@@ -1,5 +1,7 @@
 extends Node2D
+
 const TRACK_1_SNIP = preload("res://UI/MainMenu/track_1_snip.png")
+const TRACK_2_SNIP = preload("res://UI/MainMenu/track_2_snip.png")
 
 @onready var level_button: Button = $MainMenu/MarginContainer/VBoxContainer/TrackBox/LevelButton
 @onready var level_label: Label = $MainMenu/MarginContainer/VBoxContainer/TrackBox/LevelLabel
@@ -43,6 +45,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if level_label.text == "1":
 		track_pic.texture = TRACK_1_SNIP
+	if level_label.text == "2":
+		track_pic.texture = TRACK_2_SNIP
 
 func _on_start_button_pressed() -> void:
 	GlobalVars.total_players = num_players # determines whether one or two players spawn
@@ -88,8 +92,12 @@ func _on_players_button_pressed() -> void:
 # does nothing yet, only one level
 func _on_level_button_pressed() -> void:
 	button_sound.play()
-	level = 2
-	level_label.text = "2"
+	if level_label.text == "1":
+		level = 2
+		level_label.text = "2"
+	elif level_label.text == "2":
+		level = 1
+		level_label.text = "1"
 
 # race, points, tag and changes labels accordingly
 func _on_race_type_button_pressed() -> void:
