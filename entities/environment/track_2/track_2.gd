@@ -115,6 +115,5 @@ func _on_final_body_entered(body: Node2D) -> void:
 					player_checkpoint_tracker_2.clear()
 
 func spawn_point_box() -> void:
-	print("box_spawn")
 	new_point_box = point_box.instantiate()
 	get_parent().call_deferred("add_child", new_point_box) # necessary to prevent conflicts when instantiating
