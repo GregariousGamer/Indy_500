@@ -99,5 +99,4 @@ func _on_three_body_entered(body: Node2D) -> void:
 			
 func spawn_point_box() -> void:
 	new_point_box = point_box.instantiate()
-	add_child(new_point_box)
-
+	get_parent().call_deferred("add_child", new_point_box) # necessary to prevent conflicts when instantiating

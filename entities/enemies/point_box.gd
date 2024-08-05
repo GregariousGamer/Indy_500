@@ -25,6 +25,23 @@ func _ready() -> void:
 	
 	
 		self.position = Vector2(spawn_location_x, spawn_location_y)
+		
+	if GlobalVars.track_select == 2:
+		var random_quadrant: int = randi_range(0, 3)
+		var spawn_location_x: int
+		var spawn_location_y: int = randi_range(-320, 320)
+		
+		if random_quadrant == 0:
+			spawn_location_x = randi_range(-715, -560)
+		elif random_quadrant == 1:
+			spawn_location_x = randi_range(-460, -90)
+			spawn_location_y = randi_range(-320, 185)
+		elif random_quadrant == 2:
+			spawn_location_x = randi_range(90, 430)
+		elif random_quadrant == 3:
+			spawn_location_x = randi_range(560, 715)
+			
+		self.position = Vector2(spawn_location_x, spawn_location_y)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
