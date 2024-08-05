@@ -38,8 +38,7 @@ func _ready() -> void:
 		seconds_label.label_settings = HUD_LABEL_SETTINGS
 		milliseconds_label.label_settings = HUD_LABEL_SETTINGS
 		player_1_label.label_settings = HUD_LABEL_SETTINGS
-		player_2_label.label_settings = HUD_LABEL_SETTINGS
-		print("hi")	
+		player_2_label.label_settings = HUD_LABEL_SETTINGS	
 
 	SignalManager.connect("player_1_point", update_score_label_p1)
 	SignalManager.connect("player_2_point", update_score_label_p2)

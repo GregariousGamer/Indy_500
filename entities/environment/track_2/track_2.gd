@@ -19,12 +19,16 @@ var player_checkpoint_tracker_2: Array[int]
 var player_lap_tracker: int
 var player_lap_tracker_2: int
 
+var new_point_box: Sprite2D
+
 @onready var car_start_marker: Marker2D = $Player/CarStartMarker
 @onready var car_2_start_marker: Marker2D = $Player/Car2StartMarker
 @onready var lap_sound: AudioStreamPlayer2D = $Sounds/LapSound
 
 
 func _ready() -> void:
+	SignalManager.connect("can_spawn_point", spawn_point_box)	
+
 	new_car = player_car.instantiate()
 	new_car.position = car_start_marker.position
 	new_car.add_to_group("player_1")
@@ -35,6 +39,12 @@ func _ready() -> void:
 		new_car_2.position = car_2_start_marker.position
 		new_car_2.add_to_group("player_2")
 		add_child(new_car_2)
+		
+	if GlobalVars.race_style == "POINTS":
+		spawn_point_box()
+	
+	if GlobalVars.race_style == "TAG":
+		spawn_point_box()
 	
 	new_hud = score_hud.instantiate()
 	new_hud.position = Vector2(0, -325) # moved up because track is not centered on viewport
@@ -103,3 +113,8 @@ func _on_final_body_entered(body: Node2D) -> void:
 					lap_sound.play()
 					SignalManager.full_lap_update_score_player_2.emit()
 					player_checkpoint_tracker_2.clear()
+
+func spawn_point_box() -> void:
+	print("box_spawn")
+	new_point_box = point_box.instantiate()
+	get_parent().call_deferred("add_child", new_point_box) # necessary to prevent conflicts when instantiating
