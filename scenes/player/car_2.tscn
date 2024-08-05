@@ -68,14 +68,12 @@ libraries = {
 }
 
 [node name="CarTrails" parent="." instance=ExtResource("2_lqdm0")]
-z_index = -1
 position = Vector2(6.48499e-05, 9.99999)
 rotation = -1.57081
 emitting = false
 amount = 15
 
 [node name="CarTrails2" parent="." instance=ExtResource("2_lqdm0")]
-z_index = -1
 position = Vector2(-8.01086e-05, -9.99999)
 rotation = -1.57081
 emitting = false
