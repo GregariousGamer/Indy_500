@@ -8,3 +8,4 @@ signal player_2_point
 
 signal can_spawn_point
 
+signal remove_point_box

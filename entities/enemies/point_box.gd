@@ -4,6 +4,7 @@ extends Sprite2D
 
 
 func _ready() -> void:
+	SignalManager.connect("remove_point_box", remove_point_box)
 	
 	if GlobalVars.track_select == 1:
 		var random_quadrant: int = randi_range(0, 3)
@@ -72,3 +73,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		self.hide()
 		await get_tree().create_timer(0.5).timeout # needed because otherwise queue_free messes with sound
 		queue_free()
+		
+func remove_point_box() -> void:
+	queue_free()

@@ -146,7 +146,7 @@ func update_score_label_p2() -> void:
 			retry_button.show()
 			resume_button.hide()
 			get_tree().paused = true
-		player_2_label.text = "P1 POINTS: " + str(score_player_2)
+		player_2_label.text = "P2 POINTS: " + str(score_player_2)
 		
 	if GlobalVars.race_style == "TAG":
 		score_player_2 += 1
@@ -171,6 +171,7 @@ func _on_resume_button_pressed() -> void:
 	get_tree().paused = false
 
 func _on_quit_button_pressed() -> void:
+	SignalManager.remove_point_box.emit()
 	get_tree().paused = false
 	get_tree().change_scene_to_file(GlobalVars.main)
 
